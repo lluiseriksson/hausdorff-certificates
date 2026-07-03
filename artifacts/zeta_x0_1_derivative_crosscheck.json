@@ -1,0 +1,70 @@
+{
+ "all_inside": true,
+ "description": "b_n(1) from Cauchy-integral derivatives of S_Xi via xi'/xi (floating quadrature, NON-RIGOROUS) compared against the rigorous zero-sum + tail enclosures; 'inside' validates both the zero list and the tail bound direction",
+ "epistemic_status": "demonstration tier; no certificate semantics",
+ "rows": [
+  {
+   "b_n_from_derivatives": "0.02306796403023128768",
+   "enclosure": [
+    "0.018935207262789542892",
+    "0.023204074909851829533"
+   ],
+   "inside": true,
+   "n": 0
+  },
+  {
+   "b_n_from_derivatives": "0.000036886227741765115975",
+   "enclosure": [
+    "0.000036843115461367807032",
+    "0.000036891290186576025276"
+   ],
+   "inside": true,
+   "n": 1
+  },
+  {
+   "b_n_from_derivatives": "1.4220396075303902449e-7",
+   "enclosure": [
+    "1.4220303692679751573e-7",
+    "1.4220415048871958357e-7"
+   ],
+   "inside": true,
+   "n": 2
+  },
+  {
+   "b_n_from_derivatives": "6.5033422603349918717e-10",
+   "enclosure": [
+    "6.5033420196832344137e-10",
+    "6.5033423315825359516e-10"
+   ],
+   "inside": true,
+   "n": 3
+  },
+  {
+   "b_n_from_derivatives": "3.1354513011457133413e-12",
+   "enclosure": [
+    "3.1354513004582698714e-12",
+    "3.1354513014134577845e-12"
+   ],
+   "inside": true,
+   "n": 4
+  },
+  {
+   "b_n_from_derivatives": "1.5410913290119866449e-14",
+   "enclosure": [
+    "1.5410913290099143852e-14",
+    "1.5410913290129931877e-14"
+   ],
+   "inside": true,
+   "n": 5
+  },
+  {
+   "b_n_from_derivatives": "7.6325159682082853038e-17",
+   "enclosure": [
+    "7.632515968208220597e-17",
+    "7.6325159682083231509e-17"
+   ],
+   "inside": true,
+   "n": 6
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hausdorff-certificates"
+version = "0.1.0"
+description = "Finite PSD certificates H_N, L_N for Hausdorff moment sequences: exact rational and interval-arithmetic backends, with independently checkable certificate files."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Lluis Eriksson" }]
+dependencies = ["mpmath>=1.3"]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[project.urls]
+"Knowledge tree" = "https://github.com/lluiseriksson/physmath-knowledge-tree"
+"Eriksson programme" = "https://github.com/lluiseriksson/THE-ERIKSSON-PROGRAMME"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+markers = ["slow: slow tests (zeta zeros via mpmath)"]
+testpaths = ["tests"]

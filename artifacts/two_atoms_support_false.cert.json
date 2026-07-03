@@ -1,0 +1,53 @@
+{
+ "backend": "exact-rational",
+ "certificate": {
+  "type": "negative_witness",
+  "v": [
+   "0",
+   "1",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0"
+  ],
+  "value": "-1/36"
+ },
+ "cm_check": {
+  "max_order": 14,
+  "violations": []
+ },
+ "format": "hausdorff-certificate/1",
+ "matrix": {
+  "N": 6,
+  "kind": "hankel_L_theta",
+  "theta": "1/2"
+ },
+ "moments": {
+  "type": "rational",
+  "values": [
+   "1",
+   "1/2",
+   "5/18",
+   "1/6",
+   "17/162",
+   "11/162",
+   "65/1458",
+   "43/1458",
+   "257/13122",
+   "19/1458",
+   "1025/118098",
+   "683/118098",
+   "4097/1062882",
+   "2731/1062882",
+   "16385/9565938"
+  ]
+ },
+ "name": "two_atoms_support_false",
+ "provenance": {
+  "claim": "supp(mu) subset [0, 1/2] (FALSE: atom at 2/3)",
+  "expected": "NOT_PSD_CERTIFIED with an exact rational witness",
+  "source": "mu = (1/2) delta_{1/3} + (1/2) delta_{2/3}; sup(supp) = 2/3"
+ },
+ "verdict": "NOT_PSD_CERTIFIED"
+}

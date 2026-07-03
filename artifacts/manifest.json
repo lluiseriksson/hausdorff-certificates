@@ -1,0 +1,30 @@
+{
+ "files": {
+  "corrupted_moments.cert.json": "c307532f05a571328798976fa3fd6ec0ea355abba01d61ee6a989a4c3d186856",
+  "hilbert_lebesgue__H.cert.json": "3383f8f025bc8f29d11c3b10fe0e316dc9b66f523f1e92cf67c849eea8bc5042",
+  "hilbert_lebesgue__L.cert.json": "ea3b5cb5f4a34b6ba3fdbeff27b01b25fd7906252a2585fa38febd44e5732ffe",
+  "laplacian5__H.cert.json": "2983ea8d9792d254e44e452778dfe9b054e7174898949c09afb580a5eade2dd1",
+  "laplacian5_coercivity_fail.cert.json": "0af0108c5727a635e178d299153c2f72afdb90a34b132887e4d9dcb993611c62",
+  "laplacian5_coercivity_pass.cert.json": "9710cac1294e194bb72ccbac60de340e3ce984afe3c856556e45150ffcf24f2e",
+  "two_atoms__H.cert.json": "548a319dfffedea050f65e793aebd040913c199038a3f1e034886ebcfccb0cfe",
+  "two_atoms__L.cert.json": "a8f9eb806ad2046c2607d6c988f5963ac068550d54b1a2643ccd2bde163053aa",
+  "two_atoms_support_false.cert.json": "7b6741fe1440125a3a9eb19091b867e6dc48d6c227af21e977fc90cd24896206",
+  "two_atoms_support_true.cert.json": "ffca7b9997b33232fa3a564e7b18a04005aa634bcd9cfaf3018bcabb6ccfdfa3",
+  "zeta_x0_1_derivative_crosscheck.json": "92059a2f32874a1399cf15afbc8af6c9350062df5af70780d06fcc1b3bf5a3aa",
+  "zeta_x0_1_full__H_N4.cert.json": "bf6929bdfa1edccdba6bac72e78af80900abfd1e599073547616fb172ec6c68e",
+  "zeta_x0_1_trunc__H_N14.cert.json": "c9b0365dff783a8c3109cfcfdcd249adfe5659d69d92249d3de2a590d12df05a",
+  "zeta_x0_1_trunc__L_N14.cert.json": "3b487f32006438a2dac5b53b15bc7b34efc6d42c3ddbcedfeedf258f8cf8a2c5"
+ },
+ "format": "hausdorff-certificates-manifest/1",
+ "package_version": "0.1.0",
+ "parameters": {
+  "zeta": {
+   "inflate_exp": 52,
+   "serialize_digits": 70,
+   "work_dps": 220,
+   "x0": "1",
+   "zeros": 60,
+   "zeros_dps": 60
+  }
+ }
+}

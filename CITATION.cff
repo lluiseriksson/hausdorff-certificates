@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: "hausdorff-certificates: finite PSD certificates for Hausdorff moment sequences"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Eriksson
+    given-names: Lluis
+version: 0.1.0
+date-released: 2026-07-03
+license: MIT
+keywords:
+  - Hausdorff moment problem
+  - Hankel matrices
+  - interval arithmetic
+  - certified computation
+  - Riemann hypothesis falsifiers
+  - coercivity certificates
