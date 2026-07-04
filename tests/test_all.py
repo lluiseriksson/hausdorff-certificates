@@ -233,6 +233,24 @@ def test_manifest_digest_covers_artifact_roles(capsys):
     assert "file" in out and "sha256" in out
 
 
+def test_manifest_digest_reports_hash_failures(tmp_path, capsys):
+    src = Path("artifacts")
+    copied = tmp_path / "artifacts"
+    copied.mkdir()
+    for artifact in src.iterdir():
+        copied.joinpath(artifact.name).write_bytes(artifact.read_bytes())
+
+    target = copied / "hilbert_lebesgue__H.cert.json"
+    obj = json.loads(target.read_text(encoding="utf-8"))
+    obj["name"] = "tampered_hilbert_lebesgue__H"
+    target.write_text(json.dumps(obj, sort_keys=True, indent=1) + "\n", encoding="utf-8")
+
+    assert manifest_main([str(copied / "manifest.json")]) == 1
+    out = capsys.readouterr().out
+    assert "hilbert_lebesgue__H.cert.json" in out
+    assert "FAIL" in out
+
+
 # ------------------------------------------------------------- zeta smoke
 
 @pytest.mark.slow
