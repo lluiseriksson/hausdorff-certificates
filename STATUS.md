@@ -1,11 +1,15 @@
 # Status heartbeat
 
-Last audited: 2026-07-04 17:14 UTC
+Last audited: 2026-07-04 20:38 UTC
 
 Default branch `main` is at
-`ce2ca84d47792a0e2edb3f25128aa171330ca44c`. The latest observed GitHub
-Actions run on `main` was workflow `ci`, run `28707084762`, and completed
+`e75eaf65c781efe5bfa9a2090e7e3b580d5a0d72`. The latest observed GitHub
+Actions run on `main` was workflow `ci`, run `28713819153`, and completed
 successfully on 2026-07-04.
+
+Open PR and issue scan at this audit found draft PR #5
+(`codex/status-heartbeat-20260704-1817`) open with green CI, and no open
+issues labeled `agent-task`, `blocked`, or `interface-change`.
 
 ## Mother-facing digest
 
@@ -56,6 +60,7 @@ These blockers do not affect the exact-rational artifacts.
 
 ## Next small step
 
-Human review/merge PR #4, then keep the next satellite unit similarly small:
-prefer another verifier/manifest edge-case test or a mother-facing digest
-update over committed finite artifacts.
+Prefer another verifier/manifest edge-case test or a mother-facing digest
+update over committed finite artifacts. A useful next verifier unit would be a
+CLI smoke check that a malformed manifest format exits nonzero and reports the
+unknown manifest format string.
