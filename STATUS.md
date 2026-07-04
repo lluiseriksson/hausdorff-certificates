@@ -1,10 +1,10 @@
 # Status heartbeat
 
-Last audited: 2026-07-04 11:48 UTC
+Last audited: 2026-07-04 17:14 UTC
 
 Default branch `main` is at
-`016febdc9c4421bcb23ba3eaf249c8c88ba756d3`. The latest observed GitHub
-Actions run on `main` was workflow `ci`, run `28703961057`, and completed
+`ce2ca84d47792a0e2edb3f25128aa171330ca44c`. The latest observed GitHub
+Actions run on `main` was workflow `ci`, run `28707084762`, and completed
 successfully on 2026-07-04.
 
 ## Mother-facing digest
@@ -56,5 +56,6 @@ These blockers do not affect the exact-rational artifacts.
 
 ## Next small step
 
-Add a negative manifest test that corrupts a copied artifact and checks that
-`python -m hausdorff_certificates.manifest` reports a failed SHA-256 row.
+Human review/merge PR #4, then keep the next satellite unit similarly small:
+prefer another verifier/manifest edge-case test or a mother-facing digest
+update over committed finite artifacts.

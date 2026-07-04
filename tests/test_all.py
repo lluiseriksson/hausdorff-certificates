@@ -1,4 +1,6 @@
 import json
+import subprocess
+import sys
 from fractions import Fraction as F
 from pathlib import Path
 
@@ -231,6 +233,68 @@ def test_manifest_digest_covers_artifact_roles(capsys):
     assert manifest_main(["artifacts/manifest.json"]) == 0
     out = capsys.readouterr().out
     assert "file" in out and "sha256" in out
+
+
+def test_manifest_digest_reports_hash_failures(tmp_path, capsys):
+    src = Path("artifacts")
+    copied = tmp_path / "artifacts"
+    copied.mkdir()
+    for artifact in src.iterdir():
+        copied.joinpath(artifact.name).write_bytes(artifact.read_bytes())
+
+    target = copied / "hilbert_lebesgue__H.cert.json"
+    obj = json.loads(target.read_text(encoding="utf-8"))
+    obj["name"] = "tampered_hilbert_lebesgue__H"
+    target.write_text(json.dumps(obj, sort_keys=True, indent=1) + "\n", encoding="utf-8")
+
+    assert manifest_main([str(copied / "manifest.json")]) == 1
+    out = capsys.readouterr().out
+    assert "hilbert_lebesgue__H.cert.json" in out
+    assert "FAIL" in out
+
+
+def test_verify_cli_smoke_on_committed_exact_certificates():
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "hausdorff_certificates.verify",
+            "artifacts/hilbert_lebesgue__H.cert.json",
+            "artifacts/two_atoms_support_false.cert.json",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert "[OK ] artifacts/hilbert_lebesgue__H.cert.json" in result.stdout
+    assert "verdict=PSD_CERTIFIED" in result.stdout
+    assert "[OK ] artifacts/two_atoms_support_false.cert.json" in result.stdout
+    assert "verdict=NOT_PSD_CERTIFIED" in result.stdout
+
+
+def test_verify_cli_reports_tampered_certificate(tmp_path):
+    target = tmp_path / "tampered.cert.json"
+    obj = json.loads(Path("artifacts/hilbert_lebesgue__H.cert.json").read_text(encoding="utf-8"))
+    obj["moments"]["values"][3] = "1/3"
+    target.write_text(json.dumps(obj, sort_keys=True, indent=1) + "\n", encoding="utf-8")
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "hausdorff_certificates.verify",
+            str(target),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert f"[FAIL] {target}" in result.stdout
+    assert "LDL^T re-check FAILED" in result.stdout
 
 
 # ------------------------------------------------------------- zeta smoke
