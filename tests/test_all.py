@@ -1,5 +1,6 @@
 import json
 from fractions import Fraction as F
+from pathlib import Path
 
 import pytest
 
@@ -23,6 +24,13 @@ from hausdorff_certificates import (
     theta_for_coercivity,
 )
 from hausdorff_certificates.intervals import interval_cholesky_pd, certified_negative_rayleigh
+from hausdorff_certificates.manifest import (
+    EXACT_TIER,
+    ZETA_TIER,
+    format_manifest_digest,
+    load_manifest_digest,
+    main as manifest_main,
+)
 from hausdorff_certificates.verify import verify_obj
 
 
@@ -200,6 +208,29 @@ def test_determinism_same_bytes():
     c1 = certify_exact("h", b, "hankel_H", 5).to_json()
     c2 = certify_exact("h", b, "hankel_H", 5).to_json()
     assert c1 == c2
+
+
+def test_manifest_digest_covers_artifact_roles(capsys):
+    rows = load_manifest_digest(Path("artifacts/manifest.json"))
+    by_file = {row.file: row for row in rows}
+
+    assert len(rows) == 14
+    assert by_file["hilbert_lebesgue__H.cert.json"].backend == "exact-rational"
+    assert by_file["hilbert_lebesgue__H.cert.json"].verdict == "PSD_CERTIFIED"
+    assert by_file["hilbert_lebesgue__H.cert.json"].tier == EXACT_TIER
+    assert by_file["zeta_x0_1_trunc__H_N14.cert.json"].backend == "interval"
+    assert by_file["zeta_x0_1_trunc__H_N14.cert.json"].tier == ZETA_TIER
+    assert by_file["zeta_x0_1_derivative_crosscheck.json"].backend == "crosscheck"
+    assert by_file["zeta_x0_1_derivative_crosscheck.json"].verdict == "all_inside=True"
+    assert all(row.sha256_ok for row in rows)
+
+    text = format_manifest_digest(rows)
+    assert "laplacian5_coercivity_fail.cert.json" in text
+    assert "demonstration-tier; gates V-A,V-B" in text
+
+    assert manifest_main(["artifacts/manifest.json"]) == 0
+    out = capsys.readouterr().out
+    assert "file" in out and "sha256" in out
 
 
 # ------------------------------------------------------------- zeta smoke

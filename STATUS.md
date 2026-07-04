@@ -1,11 +1,11 @@
 # Status heartbeat
 
-Last audited: 2026-07-03 21:00 UTC
+Last audited: 2026-07-04 10:45 UTC
 
 Default branch `main` is at
-`d7c8452cca34188c54393f8e52a1212730378418`. The latest observed GitHub
-Actions run on `main` was workflow `ci`, run `28674784073`, and completed
-successfully on 2026-07-03.
+`8736812071ba333e4fa2a2c7f0f7898707860711`. The latest observed GitHub
+Actions run on `main` was workflow `ci`, run `28702607404`, and completed
+successfully on 2026-07-04.
 
 ## Mother-facing digest
 
@@ -20,6 +20,10 @@ Consumable API and theorem names:
 - `hausdorff_pair_exact`, `coercivity_bundle_exact`
 - `theta_for_coercivity`, `lambda_min_lower_bound_from_theta`
 - `zeta_moment_enclosures`, `tail_upper_bound`, `lemma_s_tail_bound`
+
+Consumable command:
+
+- `python -m hausdorff_certificates.manifest artifacts/manifest.json`
 
 Consumable files:
 
@@ -52,6 +56,6 @@ These blockers do not affect the exact-rational artifacts.
 
 ## Next small step
 
-Add a tiny command-line digest or manifest check that prints the artifact names,
-backend, verdict, and gate tier from `artifacts/manifest.json`, then test it
-against the committed artifact set.
+Add a README note for `python -m hausdorff_certificates.manifest
+artifacts/manifest.json` after the digest PR lands, so downstream users can
+find the artifact-role summary without reading the package sources.
