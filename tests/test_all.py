@@ -253,6 +253,25 @@ def test_manifest_digest_reports_hash_failures(tmp_path, capsys):
     assert "FAIL" in out
 
 
+def test_manifest_digest_reports_missing_artifact_path(tmp_path, capsys):
+    src = Path("artifacts")
+    copied = tmp_path / "artifacts"
+    copied.mkdir()
+    for artifact in src.iterdir():
+        copied.joinpath(artifact.name).write_bytes(artifact.read_bytes())
+
+    missing = copied / "hilbert_lebesgue__H.cert.json"
+    missing.unlink()
+
+    with pytest.raises(FileNotFoundError) as exc:
+        load_manifest_digest(copied / "manifest.json")
+    assert exc.value.filename == str(missing)
+
+    assert manifest_main([str(copied / "manifest.json")]) == 1
+    err = capsys.readouterr().err
+    assert repr(str(missing)) in err
+
+
 def test_verify_cli_smoke_on_committed_exact_certificates():
     result = subprocess.run(
         [
