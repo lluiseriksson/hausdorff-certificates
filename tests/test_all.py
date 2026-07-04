@@ -274,6 +274,29 @@ def test_verify_cli_smoke_on_committed_exact_certificates():
     assert "verdict=NOT_PSD_CERTIFIED" in result.stdout
 
 
+def test_verify_cli_reports_tampered_certificate(tmp_path):
+    target = tmp_path / "tampered.cert.json"
+    obj = json.loads(Path("artifacts/hilbert_lebesgue__H.cert.json").read_text(encoding="utf-8"))
+    obj["moments"]["values"][3] = "1/3"
+    target.write_text(json.dumps(obj, sort_keys=True, indent=1) + "\n", encoding="utf-8")
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "hausdorff_certificates.verify",
+            str(target),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert f"[FAIL] {target}" in result.stdout
+    assert "LDL^T re-check FAILED" in result.stdout
+
+
 # ------------------------------------------------------------- zeta smoke
 
 @pytest.mark.slow
