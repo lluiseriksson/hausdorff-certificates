@@ -55,9 +55,10 @@ nothing in this repo enters the Lean core's dependency tree.
 
 ```bash
 pip install -e ".[test]"     # only runtime dependency: mpmath
-pytest                       # 16 tests, < 1 s (plus one slow zeta smoke test)
+pytest                       # 17 tests, < 1 s (plus one slow zeta smoke test)
 make artifacts               # regenerate artifacts/ deterministically
 make verify                  # independent re-validation of every certificate
+python -m hausdorff_certificates.manifest artifacts/manifest.json  # artifact digest + hash check
 ```
 
 ## The two dictionaries
@@ -112,7 +113,7 @@ src/hausdorff_certificates/
   certify.py     certificate format (deterministic JSON) + high-level API
   verify.py      independent re-checker (library + CLI)
 scripts/generate_artifacts.py   deterministic reference run
-tests/           16 tests incl. tamper detection and byte-determinism
+tests/           17 tests incl. tamper detection, byte-determinism, manifest digest
 MATH.md          precise statements and proofs of everything used
 ```
 

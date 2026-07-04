@@ -1,10 +1,10 @@
 # Status heartbeat
 
-Last audited: 2026-07-04 10:45 UTC
+Last audited: 2026-07-04 11:48 UTC
 
 Default branch `main` is at
-`8736812071ba333e4fa2a2c7f0f7898707860711`. The latest observed GitHub
-Actions run on `main` was workflow `ci`, run `28702607404`, and completed
+`016febdc9c4421bcb23ba3eaf249c8c88ba756d3`. The latest observed GitHub
+Actions run on `main` was workflow `ci`, run `28703961057`, and completed
 successfully on 2026-07-04.
 
 ## Mother-facing digest
@@ -56,6 +56,5 @@ These blockers do not affect the exact-rational artifacts.
 
 ## Next small step
 
-Add a README note for `python -m hausdorff_certificates.manifest
-artifacts/manifest.json` after the digest PR lands, so downstream users can
-find the artifact-role summary without reading the package sources.
+Add a negative manifest test that corrupts a copied artifact and checks that
+`python -m hausdorff_certificates.manifest` reports a failed SHA-256 row.
