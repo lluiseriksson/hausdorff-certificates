@@ -101,6 +101,7 @@ stated inflation radius).
 ## Layout
 
 ```
+STATUS.md      current satellite heartbeat, blockers, and next small step
 src/hausdorff_certificates/
   rational.py    exact LDL^T decision + witness lifting (pure Fractions)
   intervals.py   interval Cholesky, certified Rayleigh witnesses (mpmath.iv)
