@@ -1,6 +1,6 @@
 # Status heartbeat
 
-Last audited: 2026-07-04 13:48 UTC
+Last audited: 2026-07-04 14:57 UTC
 
 Default branch `main` is at
 `ce2ca84d47792a0e2edb3f25128aa171330ca44c`. The latest observed GitHub
@@ -56,5 +56,5 @@ These blockers do not affect the exact-rational artifacts.
 
 ## Next small step
 
-Add a CLI smoke test for `python -m hausdorff_certificates.verify` on one
-positive exact certificate and one committed negative witness certificate.
+Add a CLI failure smoke test for `python -m hausdorff_certificates.verify`
+using a temporary tampered certificate copy.

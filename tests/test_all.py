@@ -1,4 +1,6 @@
 import json
+import subprocess
+import sys
 from fractions import Fraction as F
 from pathlib import Path
 
@@ -249,6 +251,27 @@ def test_manifest_digest_reports_hash_failures(tmp_path, capsys):
     out = capsys.readouterr().out
     assert "hilbert_lebesgue__H.cert.json" in out
     assert "FAIL" in out
+
+
+def test_verify_cli_smoke_on_committed_exact_certificates():
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "hausdorff_certificates.verify",
+            "artifacts/hilbert_lebesgue__H.cert.json",
+            "artifacts/two_atoms_support_false.cert.json",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert "[OK ] artifacts/hilbert_lebesgue__H.cert.json" in result.stdout
+    assert "verdict=PSD_CERTIFIED" in result.stdout
+    assert "[OK ] artifacts/two_atoms_support_false.cert.json" in result.stdout
+    assert "verdict=NOT_PSD_CERTIFIED" in result.stdout
 
 
 # ------------------------------------------------------------- zeta smoke
