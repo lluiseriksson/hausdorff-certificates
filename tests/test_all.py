@@ -272,6 +272,30 @@ def test_manifest_digest_reports_missing_artifact_path(tmp_path, capsys):
     assert repr(str(missing)) in err
 
 
+def test_manifest_cli_reports_unknown_manifest_format(tmp_path):
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(
+        json.dumps({"format": "hausdorff-certificates-manifest/0", "files": {}}) + "\n",
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "hausdorff_certificates.manifest",
+            str(manifest),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert "manifest digest failed:" in result.stderr
+    assert "unknown manifest format 'hausdorff-certificates-manifest/0'" in result.stderr
+
+
 def test_verify_cli_smoke_on_committed_exact_certificates():
     result = subprocess.run(
         [
