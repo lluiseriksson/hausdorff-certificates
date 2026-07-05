@@ -248,6 +248,18 @@ def test_certificate_short_witness_reports_dimension_failure():
     assert msg == "witness vector length 5 does not match matrix size 6"
 
 
+def test_certificate_short_interval_witness_reports_dimension_failure():
+    b = [Interval("1", "1"), Interval("2", "2"), Interval("1", "1")]
+    cert = certify_interval("bad_interval_hankel", b, "hankel_H", 1)
+    assert cert.verdict == "NOT_PSD_CERTIFIED"
+    obj = json.loads(cert.to_json())
+    obj["certificate"]["v"] = obj["certificate"]["v"][:-1]
+
+    ok, msg = verify_obj(obj)
+    assert not ok
+    assert msg == "interval witness vector length 1 does not match matrix size 2"
+
+
 def test_certificate_roundtrip_interval():
     import mpmath
 
