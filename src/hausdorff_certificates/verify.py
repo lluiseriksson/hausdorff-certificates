@@ -37,6 +37,7 @@ def verify_obj(obj: Dict) -> Tuple[bool, str]:
         N = obj["matrix"]["N"]
         theta = obj["matrix"].get("theta")
         A = build_matrix(kind, b, N, theta)
+        matrix_size = len(A)
     except Exception as exc:  # noqa: BLE001 - verifier API reports malformed payloads
         return False, f"matrix rebuild failed: {exc}"
     try:
@@ -67,6 +68,10 @@ def verify_obj(obj: Dict) -> Tuple[bool, str]:
             return False, "witness evidence with non-refuting verdict"
         try:
             v = [Fraction(x) for x in cert["v"]]
+            if len(v) != matrix_size:
+                return False, (
+                    f"witness vector length {len(v)} does not match matrix size {matrix_size}"
+                )
             val = quadratic_form(A, v)
             ok = val < 0 and str(val) == cert["value"]
         except Exception as exc:  # noqa: BLE001 - verifier API reports malformed payloads
@@ -93,6 +98,10 @@ def verify_obj(obj: Dict) -> Tuple[bool, str]:
             return False, "interval witness with non-refuting verdict"
         try:
             v = [Fraction(x) for x in cert["v"]]
+            if len(v) != matrix_size:
+                return False, (
+                    f"interval witness vector length {len(v)} does not match matrix size {matrix_size}"
+                )
             neg, bounds = certified_negative_rayleigh(A, v, dps=int(cert["dps"]))
         except Exception as exc:  # noqa: BLE001 - verifier API reports malformed payloads
             return False, f"interval witness evidence read failed: {exc}"
