@@ -276,6 +276,26 @@ def test_certificate_roundtrip_interval():
     assert ok, msg
 
 
+def test_certificate_malformed_interval_cholesky_reports_failure():
+    import mpmath
+
+    b = moments_lebesgue(14)
+    encl = []
+    for x in b:
+        with mpmath.workdps(50):
+            m = mpmath.mpf(x.numerator) / x.denominator
+        encl.append(Interval(m - mpmath.mpf("1e-28"), m + mpmath.mpf("1e-28")))
+    cert = certify_interval("hilbert_iv", encl, "hankel_H", 6, dps=60)
+    assert cert.verdict == "PSD_CERTIFIED"
+    obj = json.loads(cert.to_json())
+    del obj["certificate"]["dps"]
+
+    ok, msg = verify_obj(obj)
+    assert not ok
+    assert "interval-Cholesky evidence read failed:" in msg
+    assert "'dps'" in msg
+
+
 def test_determinism_same_bytes():
     b = moments_lebesgue(12)
     c1 = certify_exact("h", b, "hankel_H", 5).to_json()
