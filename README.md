@@ -113,7 +113,7 @@ src/hausdorff_certificates/
   certify.py     certificate format (deterministic JSON) + high-level API
   verify.py      independent re-checker (library + CLI)
 scripts/generate_artifacts.py   deterministic reference run
-tests/           23 tests incl. tamper detection, byte-determinism, manifest digest
+tests/           24 tests incl. tamper detection, byte-determinism, manifest digest
 MATH.md          precise statements and proofs of everything used
 ```
 
