@@ -235,6 +235,25 @@ def test_manifest_digest_covers_artifact_roles(capsys):
     assert "file" in out and "sha256" in out
 
 
+def test_manifest_digest_handles_empty_manifest(tmp_path, capsys):
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(
+        json.dumps({"format": "hausdorff-certificates-manifest/1", "files": {}}) + "\n",
+        encoding="utf-8",
+    )
+
+    rows = load_manifest_digest(manifest)
+    assert rows == []
+    assert format_manifest_digest(rows).splitlines() == [
+        "file  backend  verdict  tier  sha256",
+        "----  -------  -------  ----  ------",
+    ]
+
+    assert manifest_main([str(manifest)]) == 0
+    out = capsys.readouterr().out
+    assert "file  backend  verdict  tier  sha256" in out
+
+
 def test_manifest_digest_reports_hash_failures(tmp_path, capsys):
     src = Path("artifacts")
     copied = tmp_path / "artifacts"

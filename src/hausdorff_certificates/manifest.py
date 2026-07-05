@@ -104,10 +104,10 @@ def load_manifest_digest(manifest_path: Path) -> list[ManifestRow]:
 def format_manifest_digest(rows: Iterable[ManifestRow]) -> str:
     ordered = list(rows)
     widths = {
-        "file": max(len("file"), *(len(row.file) for row in ordered)),
-        "backend": max(len("backend"), *(len(row.backend) for row in ordered)),
-        "verdict": max(len("verdict"), *(len(row.verdict) for row in ordered)),
-        "tier": max(len("tier"), *(len(row.tier) for row in ordered)),
+        "file": max([len("file"), *(len(row.file) for row in ordered)]),
+        "backend": max([len("backend"), *(len(row.backend) for row in ordered)]),
+        "verdict": max([len("verdict"), *(len(row.verdict) for row in ordered)]),
+        "tier": max([len("tier"), *(len(row.tier) for row in ordered)]),
     }
     lines = [
         f"{'file':<{widths['file']}}  {'backend':<{widths['backend']}}  "
