@@ -328,6 +328,38 @@ def test_manifest_cli_rejects_path_entries(tmp_path):
     assert "unsafe manifest filename '../outside.cert.json'" in result.stderr
 
 
+def test_manifest_cli_rejects_windows_path_entries(tmp_path):
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "format": "hausdorff-certificates-manifest/1",
+                "files": {"nested\\artifact.cert.json": "0" * 64},
+            },
+            sort_keys=True,
+            indent=1,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "hausdorff_certificates.manifest",
+            str(manifest),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert "manifest digest failed:" in result.stderr
+    assert "unsafe manifest filename 'nested\\\\artifact.cert.json'" in result.stderr
+
+
 def test_verify_cli_smoke_on_committed_exact_certificates():
     result = subprocess.run(
         [
