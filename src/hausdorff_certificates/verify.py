@@ -49,22 +49,28 @@ def verify_obj(obj: Dict) -> Tuple[bool, str]:
     if ctype == "ldlt":
         if verdict != "PSD_CERTIFIED":
             return False, "ldlt evidence with non-PSD verdict"
-        res = ExactPSDResult(
-            True,
-            N + 1,
-            perm=list(cert["perm"]),
-            L=[[Fraction(x) for x in row] for row in cert["L"]],
-            D=[Fraction(x) for x in cert["D"]],
-        )
-        ok = res.verify(A)
+        try:
+            res = ExactPSDResult(
+                True,
+                N + 1,
+                perm=list(cert["perm"]),
+                L=[[Fraction(x) for x in row] for row in cert["L"]],
+                D=[Fraction(x) for x in cert["D"]],
+            )
+            ok = res.verify(A)
+        except Exception as exc:  # noqa: BLE001 - verifier API reports malformed payloads
+            return False, f"ldlt evidence read failed: {exc}"
         return ok, "LDL^T identity and D >= 0 re-checked exactly" if ok else "LDL^T re-check FAILED"
 
     if ctype == "negative_witness":
         if verdict != "NOT_PSD_CERTIFIED":
             return False, "witness evidence with non-refuting verdict"
-        v = [Fraction(x) for x in cert["v"]]
-        val = quadratic_form(A, v)
-        ok = val < 0 and str(val) == cert["value"]
+        try:
+            v = [Fraction(x) for x in cert["v"]]
+            val = quadratic_form(A, v)
+            ok = val < 0 and str(val) == cert["value"]
+        except Exception as exc:  # noqa: BLE001 - verifier API reports malformed payloads
+            return False, f"witness evidence read failed: {exc}"
         return ok, (
             f"v^T A v = {val} < 0 re-checked exactly" if ok else "witness re-check FAILED"
         )
@@ -72,7 +78,10 @@ def verify_obj(obj: Dict) -> Tuple[bool, str]:
     if ctype == "interval_cholesky":
         if verdict != "PSD_CERTIFIED":
             return False, "interval-Cholesky evidence with non-PSD verdict"
-        ok, _ = interval_cholesky_pd(A, dps=int(cert["dps"]))
+        try:
+            ok, _ = interval_cholesky_pd(A, dps=int(cert["dps"]))
+        except Exception as exc:  # noqa: BLE001 - verifier API reports malformed payloads
+            return False, f"interval-Cholesky evidence read failed: {exc}"
         return ok, (
             "interval Cholesky re-run: every matrix in the enclosure is PD"
             if ok
@@ -82,8 +91,11 @@ def verify_obj(obj: Dict) -> Tuple[bool, str]:
     if ctype == "interval_negative_witness":
         if verdict != "NOT_PSD_CERTIFIED":
             return False, "interval witness with non-refuting verdict"
-        v = [Fraction(x) for x in cert["v"]]
-        neg, bounds = certified_negative_rayleigh(A, v, dps=int(cert["dps"]))
+        try:
+            v = [Fraction(x) for x in cert["v"]]
+            neg, bounds = certified_negative_rayleigh(A, v, dps=int(cert["dps"]))
+        except Exception as exc:  # noqa: BLE001 - verifier API reports malformed payloads
+            return False, f"interval witness evidence read failed: {exc}"
         return neg, (
             f"interval Rayleigh in {bounds}, upper bound < 0"
             if neg
