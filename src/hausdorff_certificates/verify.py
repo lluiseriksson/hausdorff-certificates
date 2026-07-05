@@ -39,9 +39,12 @@ def verify_obj(obj: Dict) -> Tuple[bool, str]:
         A = build_matrix(kind, b, N, theta)
     except Exception as exc:  # noqa: BLE001 - verifier API reports malformed payloads
         return False, f"matrix rebuild failed: {exc}"
-    cert = obj["certificate"]
-    verdict = obj["verdict"]
-    ctype = cert["type"]
+    try:
+        cert = obj["certificate"]
+        verdict = obj["verdict"]
+        ctype = cert["type"]
+    except Exception as exc:  # noqa: BLE001 - verifier API reports malformed payloads
+        return False, f"certificate read failed: {exc}"
 
     if ctype == "ldlt":
         if verdict != "PSD_CERTIFIED":
