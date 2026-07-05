@@ -189,6 +189,18 @@ def test_certificate_tamper_detected():
     assert not ok
 
 
+def test_certificate_invalid_matrix_kind_reports_failure():
+    b = moments_lebesgue(12)
+    cert = certify_exact("hilbert", b, "hankel_H", 5)
+    obj = json.loads(cert.to_json())
+    obj["matrix"]["kind"] = "not_a_matrix_kind"
+
+    ok, msg = verify_obj(obj)
+    assert not ok
+    assert "matrix rebuild failed:" in msg
+    assert "unknown matrix kind 'not_a_matrix_kind'" in msg
+
+
 def test_certificate_roundtrip_interval():
     import mpmath
 
