@@ -13,7 +13,7 @@ import hashlib
 import json
 import sys
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Iterable
 
 
@@ -63,6 +63,19 @@ def _backend_and_verdict(obj: dict) -> tuple[str, str]:
     return str(obj.get("backend", "?")), str(obj.get("verdict", "?"))
 
 
+def _manifest_filename(filename: str) -> str:
+    posix = PurePosixPath(filename)
+    windows = PureWindowsPath(filename)
+    if (
+        not filename
+        or filename in {".", ".."}
+        or posix.name != filename
+        or windows.name != filename
+    ):
+        raise ValueError(f"unsafe manifest filename {filename!r}")
+    return filename
+
+
 def load_manifest_digest(manifest_path: Path) -> list[ManifestRow]:
     with manifest_path.open("r", encoding="utf-8") as fh:
         manifest = json.load(fh)
@@ -72,7 +85,7 @@ def load_manifest_digest(manifest_path: Path) -> list[ManifestRow]:
     base = manifest_path.parent
     rows: list[ManifestRow] = []
     for filename, expected_hash in sorted(manifest["files"].items()):
-        artifact_path = base / filename
+        artifact_path = base / _manifest_filename(filename)
         with artifact_path.open("r", encoding="utf-8") as fh:
             obj = json.load(fh)
         backend, verdict = _backend_and_verdict(obj)
