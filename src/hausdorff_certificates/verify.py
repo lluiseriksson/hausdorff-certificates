@@ -31,11 +31,14 @@ from .rational import ExactPSDResult, quadratic_form
 def verify_obj(obj: Dict) -> Tuple[bool, str]:
     if obj.get("format") != FORMAT:
         return False, f"unknown format {obj.get('format')!r}"
-    b = parse_moments(obj["moments"])
-    kind = obj["matrix"]["kind"]
-    N = obj["matrix"]["N"]
-    theta = obj["matrix"].get("theta")
-    A = build_matrix(kind, b, N, theta)
+    try:
+        b = parse_moments(obj["moments"])
+        kind = obj["matrix"]["kind"]
+        N = obj["matrix"]["N"]
+        theta = obj["matrix"].get("theta")
+        A = build_matrix(kind, b, N, theta)
+    except Exception as exc:  # noqa: BLE001 - verifier API reports malformed payloads
+        return False, f"matrix rebuild failed: {exc}"
     cert = obj["certificate"]
     verdict = obj["verdict"]
     ctype = cert["type"]
