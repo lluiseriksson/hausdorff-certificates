@@ -225,6 +225,18 @@ def test_certificate_malformed_ldlt_reports_failure():
     assert "'D'" in msg
 
 
+def test_certificate_malformed_witness_reports_failure():
+    b = moments_from_atoms([(F(1, 2), F(1, 3)), (F(1, 2), F(2, 3))], 12)
+    cert = certify_exact("bad_theta", b, "hankel_L_theta", 5, theta=F(1, 2))
+    obj = json.loads(cert.to_json())
+    del obj["certificate"]["value"]
+
+    ok, msg = verify_obj(obj)
+    assert not ok
+    assert "witness evidence read failed:" in msg
+    assert "'value'" in msg
+
+
 def test_certificate_roundtrip_interval():
     import mpmath
 
