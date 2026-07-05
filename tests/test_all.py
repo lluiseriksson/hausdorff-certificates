@@ -213,6 +213,18 @@ def test_certificate_missing_evidence_reports_failure():
     assert "'certificate'" in msg
 
 
+def test_certificate_malformed_ldlt_reports_failure():
+    b = moments_lebesgue(12)
+    cert = certify_exact("hilbert", b, "hankel_H", 5)
+    obj = json.loads(cert.to_json())
+    del obj["certificate"]["D"]
+
+    ok, msg = verify_obj(obj)
+    assert not ok
+    assert "ldlt evidence read failed:" in msg
+    assert "'D'" in msg
+
+
 def test_certificate_roundtrip_interval():
     import mpmath
 
