@@ -1,13 +1,13 @@
 # Status heartbeat
 
-Last audited: 2026-07-04 22:54 UTC
+Last audited: 2026-07-05 05:08 UTC
 
 Default branch `main` is at
-`bc0536c238cb272e0d543e0e986e70818a12f8f3`. The latest observed GitHub
-Actions run on `main` was workflow `ci`, run `28720970313`, and completed
+`6556f21268cd1911086855d2ba567992ce326024`. The latest observed GitHub
+Actions run on `main` was workflow `ci`, run `28722537793`, and completed
 successfully on 2026-07-04.
 
-Open PR and issue scan at this audit found no open PRs and no open issues
+Open PR and issue scan at audit start found no open PRs and no open issues
 labeled `agent-task`, `blocked`, or `interface-change`.
 
 ## Mother-facing digest
@@ -59,6 +59,7 @@ These blockers do not affect the exact-rational artifacts.
 
 ## Next small step
 
-Prefer another verifier/manifest edge-case test or a mother-facing digest
-refresh after the next artifact/API change. Avoid new finite artifact claims
-unless a specific consumer asks for them.
+After the manifest path-entry rejection test lands, prefer another verifier
+edge-case test or a mother-facing digest refresh after the next artifact/API
+change. Avoid new finite artifact claims unless a specific consumer asks for
+them.
