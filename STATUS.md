@@ -1,10 +1,10 @@
 # Status heartbeat
 
-Last audited: 2026-07-06 09:48 UTC
+Last audited: 2026-07-06 12:28 UTC
 
 Default branch `main` is at
-`ba32bd509ecad09b317fad3ad6d7f37a19416474`. The latest observed GitHub
-Actions run on `main` was workflow `ci`, run `28782102037`, and completed
+`e3ff4ec6f61238bfa1df818da0c6d70a8ecc7432`. The latest observed GitHub
+Actions run on `main` was workflow `ci`, run `28789934083`, and completed
 successfully on 2026-07-06.
 
 Open PR scan at audit start found no open pull requests. No open issues labeled
@@ -59,6 +59,6 @@ These blockers do not affect the exact-rational artifacts.
 
 ## Next small step
 
-After the exact evidence/verdict mismatch oracle lands, prefer another
+After the interval evidence/verdict mismatch oracle lands, prefer another
 verifier-contract edge case or a mother-facing digest refresh tied to a real
 artifact/API change.

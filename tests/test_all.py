@@ -267,6 +267,40 @@ def test_certificate_rejects_exact_evidence_verdict_mismatches():
     assert msg == "witness evidence with non-refuting verdict"
 
 
+def test_certificate_rejects_interval_evidence_verdict_mismatches():
+    import mpmath
+
+    b = moments_lebesgue(14)
+    encl = []
+    for x in b:
+        with mpmath.workdps(50):
+            m = mpmath.mpf(x.numerator) / x.denominator
+        encl.append(Interval(m - mpmath.mpf("1e-28"), m + mpmath.mpf("1e-28")))
+
+    psd = certify_interval("hilbert_iv", encl, "hankel_H", 6, dps=60)
+    assert psd.verdict == "PSD_CERTIFIED"
+    psd_obj = json.loads(psd.to_json())
+    psd_obj["verdict"] = "NOT_PSD_CERTIFIED"
+
+    ok, msg = verify_obj(psd_obj)
+    assert not ok
+    assert msg == "interval-Cholesky evidence with non-PSD verdict"
+
+    refuting = certify_interval(
+        "bad_interval_hankel",
+        [Interval("1", "1"), Interval("2", "2"), Interval("1", "1")],
+        "hankel_H",
+        1,
+    )
+    assert refuting.verdict == "NOT_PSD_CERTIFIED"
+    refuting_obj = json.loads(refuting.to_json())
+    refuting_obj["verdict"] = "PSD_CERTIFIED"
+
+    ok, msg = verify_obj(refuting_obj)
+    assert not ok
+    assert msg == "interval witness with non-refuting verdict"
+
+
 def test_certificate_malformed_ldlt_reports_failure():
     b = moments_lebesgue(12)
     cert = certify_exact("hilbert", b, "hankel_H", 5)
