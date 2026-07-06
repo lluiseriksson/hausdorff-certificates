@@ -213,6 +213,17 @@ def test_certificate_missing_evidence_reports_failure():
     assert "'certificate'" in msg
 
 
+def test_certificate_unknown_evidence_type_reports_failure():
+    b = moments_lebesgue(12)
+    cert = certify_exact("hilbert", b, "hankel_H", 5)
+    obj = json.loads(cert.to_json())
+    obj["certificate"]["type"] = "not_a_certificate_type"
+
+    ok, msg = verify_obj(obj)
+    assert not ok
+    assert msg == "unknown certificate type 'not_a_certificate_type'"
+
+
 def test_certificate_malformed_ldlt_reports_failure():
     b = moments_lebesgue(12)
     cert = certify_exact("hilbert", b, "hankel_H", 5)
