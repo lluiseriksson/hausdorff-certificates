@@ -225,6 +225,18 @@ def test_certificate_missing_ltheta_parameter_reports_failure():
     assert "theta required for hankel_L_theta" in msg
 
 
+def test_certificate_missing_matrix_n_reports_failure():
+    b = moments_lebesgue(12)
+    cert = certify_exact("hilbert", b, "hankel_H", 5)
+    obj = json.loads(cert.to_json())
+    del obj["matrix"]["N"]
+
+    ok, msg = verify_obj(obj)
+    assert not ok
+    assert "matrix rebuild failed:" in msg
+    assert "'N'" in msg
+
+
 def test_certificate_unknown_backend_reports_failure():
     b = moments_lebesgue(12)
     cert = certify_exact("hilbert", b, "hankel_H", 5)
