@@ -1,10 +1,10 @@
 # Status heartbeat
 
-Last audited: 2026-07-06 13:09 UTC
+Last audited: 2026-07-06 15:40 UTC
 
 Default branch `main` is at
-`07ee7039e2fb1b0b28ca7dde8769691e7d63a12d`. The latest observed GitHub
-Actions run on `main` was workflow `ci`, run `28791830815`, and completed
+`8e3633c2709f3b48dea5392fd301efc03ccedf6d`. The latest observed GitHub
+Actions run on `main` was workflow `ci`, run `28799574497`, and completed
 successfully on 2026-07-06.
 
 Open PR scan at audit start found no open pull requests. No open issues labeled
@@ -59,6 +59,6 @@ These blockers do not affect the exact-rational artifacts.
 
 ## Next small step
 
-After the missing-`theta` verifier oracle lands, prefer another
-verifier-contract edge case around malformed matrix metadata or a
-mother-facing digest refresh tied to a real artifact/API change.
+After the missing-`theta` verifier oracle landed in PR #25, prefer another
+verifier-contract edge case around malformed matrix metadata that is not
+already covered by the current tamper tests.
