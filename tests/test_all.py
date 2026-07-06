@@ -213,6 +213,18 @@ def test_certificate_unknown_moments_payload_reports_failure():
     assert "unknown moments payload type" in msg
 
 
+def test_certificate_missing_ltheta_parameter_reports_failure():
+    b = moments_from_atoms([(F(1, 2), F(1, 3)), (F(1, 2), F(2, 3))], 12)
+    cert = certify_exact("support_bound", b, "hankel_L_theta", 5, theta=F(3, 4))
+    obj = json.loads(cert.to_json())
+    del obj["matrix"]["theta"]
+
+    ok, msg = verify_obj(obj)
+    assert not ok
+    assert "matrix rebuild failed:" in msg
+    assert "theta required for hankel_L_theta" in msg
+
+
 def test_certificate_unknown_backend_reports_failure():
     b = moments_lebesgue(12)
     cert = certify_exact("hilbert", b, "hankel_H", 5)
