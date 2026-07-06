@@ -247,6 +247,26 @@ def test_certificate_unknown_evidence_type_reports_failure():
     assert msg == "unknown certificate type 'not_a_certificate_type'"
 
 
+def test_certificate_rejects_exact_evidence_verdict_mismatches():
+    b = moments_lebesgue(12)
+    psd = certify_exact("hilbert", b, "hankel_H", 5)
+    psd_obj = json.loads(psd.to_json())
+    psd_obj["verdict"] = "NOT_PSD_CERTIFIED"
+
+    ok, msg = verify_obj(psd_obj)
+    assert not ok
+    assert msg == "ldlt evidence with non-PSD verdict"
+
+    atoms = moments_from_atoms([(F(1, 2), F(1, 3)), (F(1, 2), F(2, 3))], 12)
+    refuting = certify_exact("bad_theta", atoms, "hankel_L_theta", 5, theta=F(1, 2))
+    refuting_obj = json.loads(refuting.to_json())
+    refuting_obj["verdict"] = "PSD_CERTIFIED"
+
+    ok, msg = verify_obj(refuting_obj)
+    assert not ok
+    assert msg == "witness evidence with non-refuting verdict"
+
+
 def test_certificate_malformed_ldlt_reports_failure():
     b = moments_lebesgue(12)
     cert = certify_exact("hilbert", b, "hankel_H", 5)
