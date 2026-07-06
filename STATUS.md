@@ -1,10 +1,10 @@
 # Status heartbeat
 
-Last audited: 2026-07-06 00:51 UTC
+Last audited: 2026-07-06 04:03 UTC
 
 Default branch `main` is at
-`66e08dfed179ba5a1bc9991f142115f370fec135`. The latest observed GitHub
-Actions run on `main` was workflow `ci`, run `28759934858`, and completed
+`16731cc4cc8a483caec781b8ad9e9e1b1c8e774e`. The latest observed GitHub
+Actions run on `main` was workflow `ci`, run `28764915623`, and completed
 successfully on 2026-07-06.
 
 Open PR scan at audit start found no open pull requests. No open issues labeled
@@ -59,6 +59,6 @@ These blockers do not affect the exact-rational artifacts.
 
 ## Next small step
 
-Prefer another small verifier edge-case test or a mother-facing digest refresh
-after the next artifact/API change. Avoid new finite artifact claims unless a
-specific consumer asks for them.
+Prefer another small verifier metadata edge-case test or a mother-facing digest
+refresh after the next artifact/API change. Avoid new finite artifact claims
+unless a specific consumer asks for them.

@@ -31,6 +31,8 @@ from .rational import ExactPSDResult, quadratic_form
 def verify_obj(obj: Dict) -> Tuple[bool, str]:
     if obj.get("format") != FORMAT:
         return False, f"unknown format {obj.get('format')!r}"
+    if obj.get("backend") not in {"exact-rational", "interval"}:
+        return False, f"unknown backend {obj.get('backend')!r}"
     try:
         b = parse_moments(obj["moments"])
         kind = obj["matrix"]["kind"]
