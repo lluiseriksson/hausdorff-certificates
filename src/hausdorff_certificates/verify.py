@@ -37,6 +37,8 @@ def verify_obj(obj: Dict) -> Tuple[bool, str]:
         b = parse_moments(obj["moments"])
         kind = obj["matrix"]["kind"]
         N = obj["matrix"]["N"]
+        if not isinstance(N, int) or isinstance(N, bool) or N < 0:
+            raise ValueError(f"matrix N must be a nonnegative integer, got {N!r}")
         theta = obj["matrix"].get("theta")
         A = build_matrix(kind, b, N, theta)
         matrix_size = len(A)

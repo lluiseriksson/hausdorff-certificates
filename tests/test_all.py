@@ -249,6 +249,17 @@ def test_certificate_missing_matrix_n_reports_failure():
     assert "'N'" in msg
 
 
+def test_certificate_malformed_matrix_n_reports_failure():
+    b = moments_lebesgue(12)
+    cert = certify_exact("hilbert", b, "hankel_H", 5)
+    obj = json.loads(cert.to_json())
+    obj["matrix"]["N"] = "5"
+
+    ok, msg = verify_obj(obj)
+    assert not ok
+    assert msg == "matrix rebuild failed: matrix N must be a nonnegative integer, got '5'"
+
+
 def test_certificate_unknown_backend_reports_failure():
     b = moments_lebesgue(12)
     cert = certify_exact("hilbert", b, "hankel_H", 5)
