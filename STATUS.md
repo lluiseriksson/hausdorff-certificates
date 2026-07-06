@@ -1,10 +1,10 @@
 # Status heartbeat
 
-Last audited: 2026-07-06 06:11 UTC
+Last audited: 2026-07-06 07:12 UTC
 
 Default branch `main` is at
-`6ad0730fd8df488f361753db3c47a026b46870b7`. The latest observed GitHub
-Actions run on `main` was workflow `ci`, run `28769512867`, and completed
+`fcff63c6333515683cef0c1623da869dfda1a0b2`. The latest observed GitHub
+Actions run on `main` was workflow `ci`, run `28771803132`, and completed
 successfully on 2026-07-06.
 
 Open PR scan at audit start found no open pull requests. No open issues labeled
@@ -59,5 +59,5 @@ These blockers do not affect the exact-rational artifacts.
 
 ## Next small step
 
-Prefer a mother-facing digest refresh after the next artifact/API change. Avoid
-new finite artifact claims unless a specific consumer asks for them.
+After the inconclusive-verdict oracle lands, prefer another verifier-contract
+edge case or a mother-facing digest refresh tied to a real artifact/API change.

@@ -343,6 +343,21 @@ def test_certificate_malformed_interval_cholesky_reports_failure():
     assert "'dps'" in msg
 
 
+def test_certificate_inconclusive_evidence_requires_inconclusive_verdict():
+    b = moments_lebesgue(12)
+    cert = certify_exact("hilbert", b, "hankel_H", 5)
+    obj = json.loads(cert.to_json())
+    obj["certificate"] = {
+        "type": "inconclusive",
+        "dps": 60,
+        "note": "test-only malformed verdict pairing",
+    }
+
+    ok, msg = verify_obj(obj)
+    assert not ok
+    assert msg == "inconclusive (nothing certified; nothing to check)"
+
+
 def test_determinism_same_bytes():
     b = moments_lebesgue(12)
     c1 = certify_exact("h", b, "hankel_H", 5).to_json()
