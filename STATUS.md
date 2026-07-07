@@ -1,11 +1,11 @@
 # Status heartbeat
 
-Last audited: 2026-07-06 22:56 UTC
+Last audited: 2026-07-07 03:38 UTC
 
 Default branch `main` is at
-`7e2ab4acd1e332fc1fcec53f49c8440e6f140359`. The latest observed GitHub
-Actions run on `main` was workflow `ci`, run `28827473838`, and completed
-successfully on 2026-07-06.
+`8a925144ad21a7ad0a903d16e1b483a6e3dbe039`. The latest observed GitHub
+Actions run on `main` was workflow `ci`, run `28839013431`, and completed
+successfully on 2026-07-07.
 
 Open PR scan at audit start found no open pull requests. No open issues labeled
 `agent-task`, `blocked`, or `interface-change` were found.
@@ -59,6 +59,6 @@ These blockers do not affect the exact-rational artifacts.
 
 ## Next small step
 
-After the boolean-`matrix.N` verifier oracle lands, prefer another
+After the missing-`verdict` verifier oracle lands, prefer another
 verifier-contract edge case around malformed required certificate metadata
 or CLI diagnostics that is not already covered by the current tamper tests.
