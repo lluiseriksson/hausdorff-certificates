@@ -700,6 +700,28 @@ def test_verify_cli_reports_tampered_certificate(tmp_path):
     assert "LDL^T re-check FAILED" in result.stdout
 
 
+def test_verify_cli_reports_malformed_json(tmp_path):
+    target = tmp_path / "malformed.cert.json"
+    target.write_text('{"format": "hausdorff-certificate/1",\n', encoding="utf-8")
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "hausdorff_certificates.verify",
+            str(target),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert f"[FAIL] {target}" in result.stdout
+    assert "verdict=?" in result.stdout
+    assert "exception: JSONDecodeError" in result.stdout
+
+
 # ------------------------------------------------------------- zeta smoke
 
 @pytest.mark.slow

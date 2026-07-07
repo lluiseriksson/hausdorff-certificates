@@ -1,10 +1,10 @@
 # Status heartbeat
 
-Last audited: 2026-07-07 03:38 UTC
+Last audited: 2026-07-07 05:46 UTC
 
 Default branch `main` is at
-`8a925144ad21a7ad0a903d16e1b483a6e3dbe039`. The latest observed GitHub
-Actions run on `main` was workflow `ci`, run `28839013431`, and completed
+`98e9593b9b2282e689ee50e3368d4dd5dce717b1`. The latest observed GitHub
+Actions run on `main` was workflow `ci`, run `28843623136`, and completed
 successfully on 2026-07-07.
 
 Open PR scan at audit start found no open pull requests. No open issues labeled
@@ -59,6 +59,6 @@ These blockers do not affect the exact-rational artifacts.
 
 ## Next small step
 
-After the missing-`verdict` verifier oracle lands, prefer another
-verifier-contract edge case around malformed required certificate metadata
-or CLI diagnostics that is not already covered by the current tamper tests.
+After the malformed-JSON CLI oracle lands, prefer another verifier-contract
+edge case around required top-level certificate metadata or manifest digest
+diagnostics that is not already covered by the current tamper tests.
