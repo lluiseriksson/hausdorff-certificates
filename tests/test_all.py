@@ -294,6 +294,18 @@ def test_certificate_missing_evidence_reports_failure():
     assert "'certificate'" in msg
 
 
+def test_certificate_missing_verdict_reports_failure():
+    b = moments_lebesgue(12)
+    cert = certify_exact("hilbert", b, "hankel_H", 5)
+    obj = json.loads(cert.to_json())
+    del obj["verdict"]
+
+    ok, msg = verify_obj(obj)
+    assert not ok
+    assert "certificate read failed:" in msg
+    assert "'verdict'" in msg
+
+
 def test_certificate_unknown_evidence_type_reports_failure():
     b = moments_lebesgue(12)
     cert = certify_exact("hilbert", b, "hankel_H", 5)
