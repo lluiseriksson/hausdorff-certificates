@@ -282,6 +282,17 @@ def test_certificate_unknown_backend_reports_failure():
     assert msg == "unknown backend 'not-a-backend'"
 
 
+def test_certificate_missing_format_reports_failure():
+    b = moments_lebesgue(12)
+    cert = certify_exact("hilbert", b, "hankel_H", 5)
+    obj = json.loads(cert.to_json())
+    del obj["format"]
+
+    ok, msg = verify_obj(obj)
+    assert not ok
+    assert msg == "unknown format None"
+
+
 def test_certificate_missing_evidence_reports_failure():
     b = moments_lebesgue(12)
     cert = certify_exact("hilbert", b, "hankel_H", 5)
