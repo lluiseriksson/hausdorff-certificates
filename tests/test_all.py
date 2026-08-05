@@ -23,6 +23,7 @@ from hausdorff_certificates import (
     moments_lebesgue,
     quadratic_form,
     resolvent_trace_moments,
+    shifted_hankel_S,
     theta_for_coercivity,
 )
 from hausdorff_certificates.intervals import interval_cholesky_pd, certified_negative_rayleigh
@@ -90,6 +91,14 @@ def test_atoms_and_support_test():
     # false statement theta = 1/2 < 2/3 -> refuted with exact witness
     res = exact_psd(hankel_L_theta(b, 5, F(1, 2)))
     assert not res.is_psd
+
+
+def test_h_and_l_alone_do_not_characterize_unit_interval_support():
+    # Moments of delta_{-1}: H and L are PSD, but the support is not in [0,1].
+    b = [F((-1) ** n) for n in range(12)]
+    assert exact_psd(hankel_H(b, 5)).is_psd
+    assert exact_psd(hankel_L(b, 5)).is_psd
+    assert not exact_psd(shifted_hankel_S(b, 5)).is_psd
 
 
 def test_cm_table_detects_corruption():

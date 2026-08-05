@@ -9,12 +9,31 @@ Notation: `mu` is a finite positive Borel measure, `b_n = int v^n dmu(v)`,
 **Theorem (Hausdorff).** A real sequence `(b_n)_{n>=0}` is the moment
 sequence of a positive measure on `[0,1]` iff it is completely monotone:
 `(-1)^k Delta^k b_n >= 0` for all `n, k >= 0`, where `Delta b_n = b_{n+1} -
-b_n`. Equivalently, iff `H_N >= 0` and `L_N >= 0` for every `N`.
+b_n`.
+
+An exact infinite matrix characterization is
+
+```text
+S_N = (b_{i+j+1}) >= 0,    L_N = (b_{i+j} - b_{i+j+1}) >= 0
+```
+
+for every `N`. Since `H_N = S_N + L_N` entrywise, these conditions also
+give `H_N >= 0`. The pair `H_N >= 0`, `L_N >= 0` is necessary but not
+sufficient: for `b_n = (-1)^n`, writing `v_i = (-1)^i` gives
+
+```text
+H_N = v v^T >= 0,    L_N = 2 v v^T >= 0,
+```
+
+although `b_1 = -1` rules out a positive representing measure on `[0,1]`.
+Here `S_N = -v v^T` detects the missing lower-support condition.
 
 *Why the matrices:* for any polynomial `p(v) = sum c_i v^i`,
-`c^T H_N c = int p(v)^2 dmu >= 0` and `c^T L_N c = int p(v)^2 (1-v) dmu >= 0`;
-conversely positivity of all `H_N, L_N` solves the moment problem on `[0,1]`
-(classical; see e.g. Shohat--Tamarkin, *The Problem of Moments*).
+`c^T S_N c = int v p(v)^2 dmu >= 0` and
+`c^T L_N c = int p(v)^2 (1-v) dmu >= 0`. Conversely, positivity of all
+`S_N, L_N` solves the moment problem on `[0,1]` (classical; see e.g.
+Shohat--Tamarkin, *The Problem of Moments*). The implemented `H_N` remains a
+valid necessary Gram certificate and finite falsifier.
 
 The difference table `(-1)^k Delta^k b_n = int v^n (1-v)^k dmu` gives the
 same information localised at `(n, k)`; the implementation uses it as a
@@ -28,16 +47,22 @@ repository is built around.
 ## 2. Support test (the theta certificate)
 
 **Proposition.** Let `mu >= 0` on `[0,1]` and `theta in (0,1]`. Then
-`supp(mu) subset [0, theta]` iff `H_N >= 0` and `L_N^theta >= 0` for all `N`.
+`supp(mu) subset [0, theta]` iff `L_N^theta >= 0` for all `N`.
 
-*Proof.* If the support bound holds, `c^T L_N^theta c = int p(v)^2 (theta -
-v) dmu >= 0`. Conversely, positivity of `(b_n)` and of `(theta b_n -
-b_{n+1})` says both `(b_n)` and `(theta b_n - b_{n+1})` are Stieltjes-type
-positive sequences; rescaling `w = v/theta` turns `(b_n theta^{-n})` into a
-Hausdorff sequence on `[0,1]`, whose representing measure pushed back has
-support in `[0, theta]`. (Diagonal congruence: `L_N^theta` for `b` equals
-`D L_N D` for the rescaled sequence with `D = diag(theta^i)` up to a
-positive factor, so the two formulations certify each other.) QED
+For an abstract sequence with no representing measure supplied in advance,
+the exact matrix characterization is `S_N >= 0` and `L_N^theta >= 0` for
+all `N`; the identity `theta H_N = S_N + L_N^theta` then supplies
+`H_N >= 0`. The implemented `H_N, L_N^theta` bundle is a necessary finite
+screen, not a complete abstract support decision.
+
+*Proof.* If the support bound holds,
+`c^T L_N^theta c = int p(v)^2 (theta - v) dmu >= 0`. Conversely, if the
+known measure charged a compact subset of `(theta, 1]`, polynomial
+approximation of a continuous function supported there would make this
+integral negative, contradicting positivity for all polynomials. For an
+abstract sequence, `S_N >= 0` and `L_N^theta >= 0` give the corresponding
+lower- and upper-localizing conditions; rescaling `v = theta w` reduces the
+result to the `[0,1]` moment theorem. QED
 
 ## 3. Yang--Mills-side dictionary: coercivity as a support bound
 
@@ -57,11 +82,13 @@ K >= c I   <=>   lambda_min >= c   <=>   v_max <= theta := x0/(c + x0)
            <=>   supp(mu) subset (0, theta].
 ```
 
-Hence `H_N >= 0` and `L_N^theta >= 0` (all `N`) certify the claimed
-coercivity constant; a certified negative eigenvalue of `L_N^theta` at any
-`N` refutes it. Since `v_max` determines `lambda_min = x0(1 - v_max)/v_max`,
-the hierarchy also *estimates* the coercivity constant from below. All of
-this is computed exactly over `Q` (`moments.resolvent_trace_moments`).
+For these explicitly constructed atomic moments, `L_N^theta >= 0` for all
+`N` certifies the claimed coercivity constant; `H_N >= 0` is an additional
+Gram consistency check. A certified negative eigenvalue of `L_N^theta` at
+any `N` refutes the claimed constant. Since `v_max` determines
+`lambda_min = x0(1 - v_max)/v_max`, the hierarchy also *estimates* the
+coercivity constant from below. All of this is computed exactly over `Q`
+(`moments.resolvent_trace_moments`).
 
 This is the "cheap finite screen" for candidate precisions/quadratic forms
 on the P4 front: refute wrong constants for pennies before attempting an

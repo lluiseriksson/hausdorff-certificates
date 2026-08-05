@@ -256,7 +256,7 @@ def certify_interval(
 
 
 # ----------------------------------------------------------------------
-# convenience: full Hausdorff pair and coercivity bundle
+# convenience: necessary finite Hausdorff and coercivity screens
 # ----------------------------------------------------------------------
 
 def hausdorff_pair_exact(name: str, b, N: int, provenance=None) -> List[Certificate]:

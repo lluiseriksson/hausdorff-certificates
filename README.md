@@ -5,9 +5,17 @@ Hausdorff moment sequences:
 
 ```
 H_N  = ( b_{i+j} )              >= 0        (moment matrix of  d mu)
+S_N  = ( b_{i+j+1} )            >= 0        (moment matrix of  v d mu)
 L_N  = ( b_{i+j} - b_{i+j+1} )  >= 0        (moment matrix of (1-v) d mu)
 L_N^theta = ( theta b_{i+j} - b_{i+j+1} ) >= 0   (support-in-[0,theta] test)
 ```
+
+For an abstract infinite sequence, the exact `[0,1]` criterion is
+`S_N, L_N >= 0` for every `N`; here `H_N = S_N + L_N`. The implemented
+`H_N, L_N` bundles are necessary finite screens, not a characterization.
+Likewise, the abstract support-in-`[0,theta]` criterion is
+`S_N, L_N^theta >= 0`; when a positive representing measure is already
+known, `L_N^theta` alone characterizes the support bound.
 
 Two backends:
 
@@ -55,7 +63,7 @@ nothing in this repo enters the Lean core's dependency tree.
 
 ```bash
 pip install -e ".[test]"     # only runtime dependency: mpmath
-pytest                       # 46 tests incl. one slow zeta smoke test
+pytest                       # 47 tests incl. one slow zeta smoke test
 make artifacts               # regenerate artifacts/ deterministically
 make verify                  # independent re-validation of every certificate
 python -m hausdorff_certificates.manifest artifacts/manifest.json  # artifact digest + hash check
@@ -75,7 +83,7 @@ spectrum.
 For a candidate precision `K`, `b_n = x0^n Tr (K + x0 I)^{-(n+1)}` has the
 same structure, and `K >= c I` is *equivalent* to `supp(mu) subset (0,
 theta]` with `theta = x0/(c + x0)`. So `H_N >= 0` together with
-`L_N^theta >= 0` is a cheap finite screen for claimed coercivity constants
+`L_N^theta >= 0` is a cheap necessary finite screen for claimed coercivity constants
 before investing in an analytic proof, and a certified negative eigenvalue
 refutes the claimed constant exactly.
 
@@ -84,7 +92,7 @@ refutes the claimed constant exactly.
 | artifact | backend | verdict | what it demonstrates |
 |---|---|---|---|
 | `hilbert_lebesgue__{H,L}` | exact | PSD | Lebesgue moments; H is the Hilbert matrix |
-| `two_atoms__{H,L}` | exact | PSD | atomic measure, Hausdorff pair |
+| `two_atoms__{H,L}` | exact | PSD | atomic measure, necessary Hausdorff screen |
 | `two_atoms_support_true` | exact | PSD | true support claim theta = 3/4 |
 | `two_atoms_support_false` | exact | NOT_PSD | false claim theta = 1/2; exact witness |
 | `laplacian5__H`, `laplacian5_coercivity_pass` | exact | PSD | `K >= 1*I` for tridiag(-1,3,-1) |
@@ -113,7 +121,7 @@ src/hausdorff_certificates/
   certify.py     certificate format (deterministic JSON) + high-level API
   verify.py      independent re-checker (library + CLI)
 scripts/generate_artifacts.py   deterministic reference run
-tests/           46 tests incl. tamper detection, byte-determinism, manifest digest
+tests/           47 tests incl. tamper detection, byte-determinism, manifest digest
 MATH.md          precise statements and proofs of everything used
 ```
 
