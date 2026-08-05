@@ -2,17 +2,25 @@
 
 For a sequence ``b = (b_0, b_1, ..., b_M)`` the classical Hausdorff moment
 problem on [0, 1] is solvable (i.e. b_n = \\int_0^1 v^n d\\mu with \\mu >= 0)
-iff the sequence is completely monotone; equivalently, iff for every N
+iff the sequence is completely monotone. An exact infinite matrix
+characterization uses, for every N,
 
-    H_N = ( b_{i+j}            )_{0<=i,j<=N}  >= 0        (moments of  d\\mu)
-    L_N = ( b_{i+j} - b_{i+j+1})_{0<=i,j<=N}  >= 0        (moments of (1-v) d\\mu)
+    S_N = ( b_{i+j+1}          )_{0<=i,j<=N}  >= 0        (moments of v d\\mu)
+    L_N = ( b_{i+j} - b_{i+j+1})_{0<=i,j<=N}  >= 0        (moments of (1-v) d\\mu).
 
-The generalized upper-support test:  supp(\\mu) \\subseteq [0, \\theta]  iff
+Then H_N = S_N + L_N is automatically positive semidefinite. Positivity of
+H_N and L_N alone is necessary but not sufficient: b_n = (-1)^n makes both
+families positive semidefinite although it is represented by delta_{-1}, not
+by a positive measure on [0, 1].
 
-    H_N >= 0   and   L_N^\\theta = ( \\theta b_{i+j} - b_{i+j+1} ) >= 0    for all N,
+For an abstract sequence, the generalized upper-support characterization is
 
-since  \\theta b_n - b_{n+1} = \\int v^n (\\theta - v) d\\mu.  This is the
-coercivity certificate used on the Yang--Mills side (see MATH.md).
+    S_N >= 0   and   L_N^\\theta = ( \\theta b_{i+j} - b_{i+j+1} ) >= 0    for all N.
+
+Indeed theta H_N = S_N + L_N^theta. If a positive representing measure is
+already known, L_N^theta alone characterizes support in [0, theta]. The H/L
+and H/L-theta convenience bundles in this package remain useful finite
+necessary screens, but they are not complete abstract moment decisions.
 
 All builders work for both exact ``Fraction`` sequences and ``Interval``
 sequences; the arithmetic is whatever the elements support.
@@ -64,7 +72,7 @@ def hankel_L_theta(b: Sequence, N: int, theta) -> List[List]:
 
 
 def shifted_hankel_S(b: Sequence, N: int) -> List[List]:
-    """S_N = (b_{i+j+1}), the Stieltjes ([0, infinity)) companion matrix."""
+    """S_N = (b_{i+j+1}), the lower-support localizing matrix."""
     if len(b) < 2 * N + 2:
         raise ValueError(f"need {2*N+2} moments for S_{N}, got {len(b)}")
     return [[b[i + j + 1] for j in range(N + 1)] for i in range(N + 1)]
