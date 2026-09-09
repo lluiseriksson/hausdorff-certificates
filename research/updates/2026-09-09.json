@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0",
+  "reviewed_on": "2026-09-09",
+  "window": {
+    "start": "2026-09-03",
+    "end": "2026-09-09",
+    "calendar_week_start": "2026-09-07"
+  },
+  "coverage": "targeted, non-exhaustive",
+  "repository_card": {
+    "repository": "lluiseriksson/hausdorff-certificates",
+    "source_ids": [
+      "2609.02882",
+      "2609.07918",
+      "2609.09033"
+    ],
+    "local_anchors": [
+      "README.md",
+      "MATH.md",
+      "SOURCES.md"
+    ],
+    "frontier": "Finite H_N/L_N tests are certificates for their supplied moment data; zeta inputs retain their source and enclosure gates.",
+    "bridge_hypothesis": "Compare low-degree moment positivity with pseudo-density obstructions from SDP complexity. Dictionary: truncated positive quadratic forms -> restricted observable tests. Positivity on a bounded-degree family does not identify a globally positive measure or remove zero-table uncertainty.",
+    "next_finite_task": "Construct a signed rational atomic example that passes a shallow moment test and fails a deeper one; verify the negative rational Rayleigh witness independently. Keep this separate from any true-zeta claim.",
+    "falsifier": "If no guaranteed input enclosures exist, mark a zeta verdict inconclusive. A finite PSD pass cannot be used to infer RH or a dimension-independent hierarchy depth.",
+    "related_repositories": [
+      "finite-sample-spectral-certificates",
+      "riemann-prime-resolvent",
+      "p-vs-np-research-front"
+    ],
+    "proposal_status": "speculative; not executed or formally verified",
+    "eliminated_hypotheses": [],
+    "inspected_commit": "a8d34d4639d0f1188e6a89af36fe3ec567aceb3a"
+  },
+  "sources": [
+    {
+      "id": "arxiv:2609.02882",
+      "arxiv_id": "2609.02882",
+      "title": "A new proof that more than $2/3$ of the zeros of the Riemann zeta function are simple and on the critical line",
+      "authors": [
+        "Lamzouri, Youness"
+      ],
+      "first_submitted": "2026-09-02",
+      "latest_revision": "2026-09-08",
+      "reviewed_version": "v2",
+      "url": "https://arxiv.org/abs/2609.02882v2",
+      "doi": "10.48550/arXiv.2609.02882",
+      "verified_on": "2026-09-09",
+      "recency": "revised-in-trailing-week",
+      "publication_status": "preprint; peer-review status not established in this sweep",
+      "evidence_level": "literature",
+      "review_depth": "v2: Theorem 1.1 and Proposition 2.1; submission history",
+      "source_claim": "Lamzouri reports unconditional asymptotic proportions above 67.25% for simple critical-line zeros and above 83.62% for distinct zeros. Version 2 adds an 88.76% bound for zeros that are simple OR on the critical line, plus a bound on the average of those two proportions. The mechanism is a Hilbert-space kernel inequality.",
+      "limits": "The union bound is not an 88.76% critical-line bound. None of these proportions proves RH or full prime-resolvent positivity. Version 2 was posted on 8 September; the first submission was 2 September.",
+      "tags": [
+        "zeta",
+        "positivity",
+        "pair-correlation",
+        "hilbert-space"
+      ],
+      "abstract_page_sha256": "9d69b130383f67c9c4dddfc31643e2d3246767126022b15043fd0da1166e93a8",
+      "reviewed_full_text_sha256": "7be30233c820783a4771d33318e2c29ad782ce4fc950012911b787cb870f7ff6",
+      "reuse": "Bibliographic metadata and original synthesis only; no permission to train on linked full text is inferred."
+    },
+    {
+      "id": "arxiv:2609.07918",
+      "arxiv_id": "2609.07918",
+      "title": "Simple critical zeros and distinct zeros of the Riemann zeta-function in short intervals",
+      "authors": [
+        "Wang, Biao"
+      ],
+      "first_submitted": "2026-09-07",
+      "latest_revision": "2026-09-07",
+      "reviewed_version": "v1",
+      "url": "https://arxiv.org/abs/2609.07918v1",
+      "doi": "10.48550/arXiv.2609.07918",
+      "verified_on": "2026-09-09",
+      "recency": "new-this-calendar-week",
+      "publication_status": "preprint; peer-review status not established in this sweep",
+      "evidence_level": "literature",
+      "review_depth": "v1: Theorems 1.1 and 2.2; Proposition 2.1",
+      "source_claim": "Wang adapts the kernel method to intervals of length T^theta. Theorem 1.1 gives theta-dependent lower bounds; Theorem 2.2 supplies a short-interval pair-correlation estimate.",
+      "limits": "The useful bound depends on theta and is asymptotic. It is not the global 67.25% bound for every short interval or a certified finite-height zero count.",
+      "tags": [
+        "zeta",
+        "local-global",
+        "pair-correlation"
+      ],
+      "abstract_page_sha256": "e6eff49c01778ad6a6e5008230cdc8026b4ef2603108482209975a6f35cd164d",
+      "reviewed_full_text_sha256": "07ceef8d0b79dde80c639873430911ff1685b1721326b0ece9ef8aa5744045a8",
+      "reuse": "Bibliographic metadata and original synthesis only; no permission to train on linked full text is inferred."
+    },
+    {
+      "id": "arxiv:2609.09033",
+      "arxiv_id": "2609.09033",
+      "title": "Semidefinite extension complexity of the separable set, with applications to approximate disentanglers",
+      "authors": [
+        "Gharibian, Sevag",
+        "Hecht, Carsten",
+        "Rudolph, Dorian"
+      ],
+      "first_submitted": "2026-09-08",
+      "latest_revision": "2026-09-08",
+      "reviewed_version": "v1",
+      "url": "https://arxiv.org/abs/2609.09033v1",
+      "doi": "10.48550/arXiv.2609.09033",
+      "verified_on": "2026-09-09",
+      "recency": "new-this-calendar-week",
+      "publication_status": "preprint; peer-review status not established in this sweep",
+      "evidence_level": "literature",
+      "review_depth": "v1: introduction, Theorem 1.1, Corollary 1.2, Section 3 and formalization links",
+      "source_claim": "Gharibian, Hecht and Rudolph give dimension- and accuracy-dependent lower bounds for semidefinite representations of separable-state optimization in the HNW model. The paper links a companion Lean development.",
+      "limits": "The common feasible region and objective-independent embedding are essential. This is not a lower bound for every SDP or for unrestricted SAT circuits. The paper credits a stronger concurrent disentangler result to Bostanci et al.; its SDP result has a distinct scope. External Lean proofs were not rebuilt here.",
+      "tags": [
+        "sdp",
+        "complexity",
+        "quantum-information",
+        "positivity"
+      ],
+      "abstract_page_sha256": "6704d827f366629248a30d0017209930487fcadf51ade39e2b38c4181d311fb4",
+      "reviewed_full_text_sha256": "c19e3f8ed52b8ad1283d56f96ad826d54d779a5a0be161402de83465ff7b563b",
+      "reuse": "Bibliographic metadata and original synthesis only; no permission to train on linked full text is inferred."
+    }
+  ]
+}
